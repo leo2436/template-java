@@ -43,7 +43,7 @@ class ParkingLotTest {
     void should_notice_invalid_ticket_when_pick_up_given_ticket_not_belong_to_parking_lot() {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car();
-        Ticket ticket = parkingLot.park(car);
+        parkingLot.park(car);
 
         Ticket otherTicket = new Ticket();
 
