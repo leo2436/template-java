@@ -1,5 +1,7 @@
 package org.oobootcamp.core;
 
+import org.oobootcamp.core.exception.InvalidTicketException;
+
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -21,7 +23,7 @@ public class ParkingLot {
 
     public Car pickUp(Ticket ticket) {
         if (!ticketCarMap.containsKey(ticket)) {
-            throw new RuntimeException("Invalid ticket");
+            throw new InvalidTicketException();
         }
         Car car = ticketCarMap.get(ticket);
         ticketCarMap.remove(ticket);

@@ -1,9 +1,9 @@
 package org.oobootcamp.core;
 
 import org.junit.jupiter.api.Test;
+import org.oobootcamp.core.exception.InvalidTicketException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class ParkingLotTest {
 
@@ -47,7 +47,9 @@ class ParkingLotTest {
 
         Ticket otherTicket = new Ticket();
 
-        assertThatThrownBy(() -> parkingLot.pickUp(otherTicket)).hasMessage("Invalid ticket");
+        assertThatExceptionOfType(InvalidTicketException.class).isThrownBy(
+                () -> parkingLot.pickUp(otherTicket)
+        ).withMessage("Invalid ticket");
     }
 
     @Test
@@ -57,6 +59,8 @@ class ParkingLotTest {
         Ticket ticket = parkingLot.park(car);
         parkingLot.pickUp(ticket);
 
-        assertThatThrownBy(() -> parkingLot.pickUp(ticket)).hasMessage("Invalid ticket");
+        assertThatExceptionOfType(InvalidTicketException.class).isThrownBy(
+                () -> parkingLot.pickUp(ticket)
+        ).withMessage("Invalid ticket");
     }
 }
