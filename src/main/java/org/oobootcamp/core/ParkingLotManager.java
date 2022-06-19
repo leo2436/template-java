@@ -1,6 +1,7 @@
 package org.oobootcamp.core;
 
 import org.oobootcamp.core.exception.FullParkingLotException;
+import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.List;
 
@@ -17,5 +18,13 @@ class ParkingLotManager {
                 .orElseThrow(FullParkingLotException::new);
 
         return targetParkingLot.park(car);
+    }
+
+    public Car pickUp(Ticket ticket) {
+        ParkingLot targetParkingLot = parkingLots.stream()
+                .filter(parkingLot -> parkingLot.id == ticket.parkingLotId).findFirst()
+                .orElseThrow(InvalidTicketException::new);
+
+        return targetParkingLot.pickUp(ticket);
     }
 }
