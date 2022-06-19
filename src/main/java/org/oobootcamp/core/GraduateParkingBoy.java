@@ -5,10 +5,10 @@ import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.List;
 
-class ParkingLotManager {
+class GraduateParkingBoy {
     private final List<ParkingLot> parkingLots;
 
-    public ParkingLotManager(List<ParkingLot> parkingLots) {
+    public GraduateParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
