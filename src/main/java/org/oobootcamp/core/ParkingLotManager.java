@@ -11,9 +11,11 @@ class ParkingLotManager {
         this.parkingLots = parkingLots;
     }
 
-    public void park(Car car) {
-        if (parkingLots.stream().allMatch(ParkingLot::isFull)) {
-            throw new FullParkingLotException();
-        }
+    public Ticket park(Car car) {
+        ParkingLot targetParkingLot = parkingLots.stream()
+                .filter(parkingLot -> !parkingLot.isFull()).findFirst()
+                .orElseThrow(FullParkingLotException::new);
+
+        return targetParkingLot.park(car);
     }
 }

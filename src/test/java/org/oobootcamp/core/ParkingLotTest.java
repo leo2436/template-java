@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.*;
 
 class ParkingLotTest {
@@ -48,7 +50,7 @@ class ParkingLotTest {
         Car car = new Car();
         parkingLot.park(car);
 
-        Ticket otherTicket = new Ticket();
+        Ticket otherTicket = new Ticket(UUID.randomUUID());
 
         assertThatExceptionOfType(InvalidTicketException.class).isThrownBy(
                 () -> parkingLot.pickUp(otherTicket)
@@ -76,7 +78,7 @@ class ParkingLotTest {
     }
 
     @Test
-    void should_return_true_when_parking_lot_is_not_full() {
+    void should_return_false_when_parking_lot_is_not_full() {
         ParkingLot parkingLot = new ParkingLot(1);
 
         assertThat(parkingLot.isFull()).isFalse();

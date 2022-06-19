@@ -4,10 +4,12 @@ import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class ParkingLot {
     private final int capacity;
     private final HashMap<Ticket, Car> ticketCarMap = new HashMap<>();
+    public UUID id = UUID.randomUUID();
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
@@ -17,7 +19,7 @@ public class ParkingLot {
         if (isFull()) {
             throw new FullParkingLotException();
         }
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(id);
         ticketCarMap.put(ticket, car);
         return ticket;
     }
