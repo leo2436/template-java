@@ -1,5 +1,6 @@
 package org.oobootcamp.core;
 
+import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class ParkingLot {
 
     public Ticket park(Car car) {
         if (ticketCarMap.size() == capacity) {
-            throw new RuntimeException("Parking lot is full");
+            throw new FullParkingLotException();
         }
         Ticket ticket = new Ticket();
         ticketCarMap.put(ticket, car);

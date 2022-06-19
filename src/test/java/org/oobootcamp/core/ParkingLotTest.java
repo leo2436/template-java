@@ -1,6 +1,7 @@
 package org.oobootcamp.core;
 
 import org.junit.jupiter.api.Test;
+import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
 import static org.assertj.core.api.Assertions.*;
@@ -25,7 +26,9 @@ class ParkingLotTest {
 
         Car secondCar = new Car();
 
-        assertThatThrownBy(() -> parkingLot.park(secondCar)).hasMessage("Parking lot is full");
+        assertThatExceptionOfType(FullParkingLotException.class).isThrownBy(
+                () -> parkingLot.park(secondCar)
+        ).withMessage("Parking lot is full");
     }
 
     @Test
