@@ -66,4 +66,19 @@ class ParkingLotTest {
                 () -> parkingLot.pickUp(ticket)
         ).withMessage("Invalid ticket");
     }
+
+    @Test
+    void should_return_true_when_parking_lot_is_full() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car());
+
+        assertThat(parkingLot.isFull()).isTrue();
+    }
+
+    @Test
+    void should_return_true_when_parking_lot_is_not_full() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        assertThat(parkingLot.isFull()).isFalse();
+    }
 }
