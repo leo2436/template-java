@@ -11,20 +11,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOf
 
 class GraduateParkingBoyTest {
     @Test
-    void should_throw_parking_lot_is_full_exception_when_parking_given_VIP_consumer_with_a_car_and_parking_lots_are_all_full() {
-        ParkingLot parkingLot1 = new ParkingLot(1);
-        ParkingLot parkingLot2 = new ParkingLot(1);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
-
-
-        assertThatExceptionOfType(FullParkingLotException.class).isThrownBy(
-                () -> graduateParkingBoy.park(new Car())
-        ).withMessage("Parking lot is full");
-    }
-
-    @Test
     void should_return_ticket_when_parking_given_VIP_consumer_with_a_car_and_parking_lot1_is_full_but_parking_lot2_parking_lot3_are_not_full() {
         ParkingLot parkingLot1 = new ParkingLot(1);
         ParkingLot targetParkingLot = new ParkingLot(2);
@@ -37,6 +23,20 @@ class GraduateParkingBoyTest {
 
         assertThat(ticket).isNotNull();
         assertThat(ticket.parkingLotId).isEqualTo(targetParkingLot.id);
+    }
+
+    @Test
+    void should_throw_parking_lot_is_full_exception_when_parking_given_VIP_consumer_with_a_car_and_parking_lots_are_all_full() {
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+
+
+        assertThatExceptionOfType(FullParkingLotException.class).isThrownBy(
+                () -> graduateParkingBoy.park(new Car())
+        ).withMessage("Parking lot is full");
     }
 
     @Test
