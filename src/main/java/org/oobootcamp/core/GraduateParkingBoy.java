@@ -4,6 +4,7 @@ import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.List;
+import java.util.Objects;
 
 class GraduateParkingBoy {
     private final List<ParkingLot> parkingLots;
@@ -22,7 +23,7 @@ class GraduateParkingBoy {
 
     public Car pickUp(Ticket ticket) {
         ParkingLot targetParkingLot = parkingLots.stream()
-                .filter(parkingLot -> parkingLot.id == ticket.parkingLotId).findFirst()
+                .filter(parkingLot -> parkingLot.name.equals(ticket.parkingLotName)).findFirst()
                 .orElseThrow(InvalidTicketException::new);
 
         return targetParkingLot.pickUp(ticket);

@@ -1,11 +1,10 @@
 package org.oobootcamp.core;
 
-import java.util.UUID;
-
 public class Ticket {
-    public UUID parkingLotId;
 
-    public Ticket(UUID parkingLotId) {
-        this.parkingLotId = parkingLotId;
+    public final String parkingLotName;
+
+    public Ticket(String parkingLotName) {
+        this.parkingLotName = parkingLotName;
     }
 }
