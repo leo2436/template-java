@@ -82,4 +82,14 @@ class ParkingLotTest {
 
         assertThat(parkingLot.isFull()).isFalse();
     }
+
+    @Test
+    void should_return_available_parking_spot() {
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new Car());
+
+        int availableParkingSpot = parkingLot.availableParkingSpot();
+
+        assertThat(availableParkingSpot).isEqualTo(1);
+    }
 }

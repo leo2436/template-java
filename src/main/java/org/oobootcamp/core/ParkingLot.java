@@ -38,4 +38,8 @@ public class ParkingLot {
     public boolean isFull() {
         return parkedCars.size() == capacity;
     }
+
+    public int availableParkingSpot() {
+        return capacity - parkedCars.size();
+    }
 }
