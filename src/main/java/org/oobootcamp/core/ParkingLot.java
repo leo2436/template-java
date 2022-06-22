@@ -7,19 +7,21 @@ import java.util.HashMap;
 
 public class ParkingLot {
     private final int capacity;
-    public final String name;
     private final HashMap<Ticket, Car> parkedCars = new HashMap<>();
 
-    public ParkingLot(String name, int capacity) {
+    public HashMap<Ticket, Car> getParkedCars() {
+        return parkedCars;
+    }
+
+    public ParkingLot(int capacity) {
         this.capacity = capacity;
-        this.name = name;
     }
 
     public Ticket park(Car car) {
         if (isFull()) {
             throw new FullParkingLotException();
         }
-        Ticket ticket = new Ticket(name);
+        Ticket ticket = new Ticket();
         parkedCars.put(ticket, car);
         return ticket;
     }
