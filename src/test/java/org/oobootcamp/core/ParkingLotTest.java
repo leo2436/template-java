@@ -84,11 +84,11 @@ class ParkingLotTest {
     }
 
     @Test
-    void should_return_available_parking_spot() {
+    void should_return_vacancy_given_a_parking_lot() {
         ParkingLot parkingLot = new ParkingLot(2);
         parkingLot.park(new Car());
 
-        int availableParkingSpot = parkingLot.availableParkingSpot();
+        int availableParkingSpot = parkingLot.vacancy();
 
         assertThat(availableParkingSpot).isEqualTo(1);
     }

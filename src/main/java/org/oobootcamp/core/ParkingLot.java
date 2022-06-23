@@ -39,7 +39,7 @@ public class ParkingLot {
         return parkedCars.size() == capacity;
     }
 
-    public int availableParkingSpot() {
+    public int vacancy() {
         return capacity - parkedCars.size();
     }
 }
