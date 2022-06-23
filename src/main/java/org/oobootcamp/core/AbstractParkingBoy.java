@@ -23,7 +23,7 @@ public abstract class AbstractParkingBoy {
 
     public Car pickUp(Ticket ticket) {
         return parkingLots.stream()
-                .filter(parkingLot -> parkingLot.getParkedCars().containsKey(ticket)).findFirst()
+                .filter(parkingLot -> parkingLot.contains(ticket)).findFirst()
                 .orElseThrow(InvalidTicketException::new)
                 .pickUp(ticket);
     }

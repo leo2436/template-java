@@ -6,6 +6,8 @@ import org.oobootcamp.core.exception.InvalidTicketException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParkingLotTest {
 
@@ -91,5 +93,24 @@ class ParkingLotTest {
         int availableParkingSpot = parkingLot.vacancy();
 
         assertThat(availableParkingSpot).isEqualTo(1);
+    }
+
+    @Test
+    void should_return_true_when_provide_a_ticket_of_parked_car_given_parking_lot_with_the_parked_car() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Ticket ticket = parkingLot.park(new Car());
+
+        boolean hasCar = parkingLot.contains(ticket);
+
+        assertTrue(hasCar);
+    }
+
+    @Test
+    void should_return_false_when_provide_a_ticket_of_parked_car_given_parking_lot_without_the_parked_car() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        boolean hasCar = parkingLot.contains(new Ticket());
+
+        assertFalse(hasCar);
     }
 }

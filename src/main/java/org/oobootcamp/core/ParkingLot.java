@@ -9,10 +9,6 @@ public class ParkingLot {
     private final int capacity;
     private final HashMap<Ticket, Car> parkedCars = new HashMap<>();
 
-    public HashMap<Ticket, Car> getParkedCars() {
-        return parkedCars;
-    }
-
     public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
@@ -37,6 +33,10 @@ public class ParkingLot {
 
     public boolean isFull() {
         return parkedCars.size() == capacity;
+    }
+
+    public boolean contains(Ticket ticket) {
+        return this.parkedCars.containsKey(ticket);
     }
 
     public int vacancy() {
