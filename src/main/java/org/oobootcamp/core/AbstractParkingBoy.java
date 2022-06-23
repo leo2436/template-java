@@ -28,5 +28,5 @@ public abstract class AbstractParkingBoy {
                 .pickUp(ticket);
     }
 
-    abstract Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots);
+     protected abstract Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots);
 }

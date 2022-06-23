@@ -10,7 +10,7 @@ class GraduateParkingBoy extends AbstractParkingBoy {
     }
 
     @Override
-    Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots) {
+    protected Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots) {
         return parkingLots.filter(parkingLot -> !parkingLot.isFull()).findFirst();
     }
 }

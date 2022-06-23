@@ -11,7 +11,7 @@ class SmartParkingBoy extends AbstractParkingBoy {
     }
 
     @Override
-    Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots) {
+    protected Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots) {
         return parkingLots.max(Comparator.comparing(ParkingLot::vacancy));
     }
 }
