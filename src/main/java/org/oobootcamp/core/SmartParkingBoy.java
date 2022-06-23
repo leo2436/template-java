@@ -3,6 +3,7 @@ package org.oobootcamp.core;
 import org.oobootcamp.core.exception.FullParkingLotException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
+import java.util.Comparator;
 import java.util.List;
 
 class SmartParkingBoy {
@@ -13,13 +14,9 @@ class SmartParkingBoy {
     }
 
     public Ticket park(Car car) {
-        parkingLots.stream()
-                .filter(parkingLot -> !parkingLot.isFull())
-                .findFirst()
-                .orElseThrow(FullParkingLotException::new);
-
         return parkingLots.stream()
-                .reduce(parkingLots.get(0), this::compare)
+                .max(Comparator.comparing(ParkingLot::availableParkingSpot))
+                .orElseThrow(FullParkingLotException::new)
                 .park(car);
     }
 
@@ -28,12 +25,5 @@ class SmartParkingBoy {
                 .filter(parkingLot -> parkingLot.getParkedCars().containsKey(ticket)).findFirst()
                 .orElseThrow(InvalidTicketException::new)
                 .pickUp(ticket);
-    }
-
-    private ParkingLot compare(ParkingLot a, ParkingLot b) {
-        if (a.availableParkingSpot() >= b.availableParkingSpot()) {
-            return a;
-        }
-        return b;
     }
 }
