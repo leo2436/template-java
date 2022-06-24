@@ -40,6 +40,21 @@ public class SmartParkingBoyTest {
     }
 
     @Test
+    void should_return_ticket_and_car_in_parking_lotA_when_parking_given_parking_lotA_with_2_vacancy_and_parking_lotB_with_2_vacancy() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(2);
+        ParkingLot parkingLotB = new ParkingLot(2);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(List.of(parkingLotA, parkingLotB));
+        Car parkedCar = new Car();
+
+        // When
+        Ticket ticket = smartParkingBoy.park(parkedCar);
+
+        // Then
+        assertThat(parkingLotA.pickUp(ticket)).isEqualTo(parkedCar);
+    }
+
+    @Test
     void should_return_ticket_and_car_in_parking_lotB_when_parking_given_parking_lotA_is_full_and_parking_lotB_with_1_vacancy() {
         // Given
         ParkingLot parkingLotA = new ParkingLot(1);
