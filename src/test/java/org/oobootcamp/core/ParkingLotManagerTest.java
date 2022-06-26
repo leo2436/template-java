@@ -125,4 +125,72 @@ class ParkingLotManagerTest {
                 () -> parkingLotManager.park(car)
         );
     }
+
+    @Test
+    void should_return_car_when_pick_up_given_parking_lotA_managed_by_self_and_parking_lotB_managed_by_boy1_and_parked_in_A() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy parkingBoyA = new GraduateParkingBoy(List.of(parkingLotB));
+        ParkingLotManager parkingLotManager = new ParkingLotManager(List.of(parkingLotA), List.of(parkingBoyA));
+        Car parkedCar = new Car();
+        Ticket ticket = parkingLotManager.park(parkedCar);
+
+        // When
+        Car pickedUpCar = parkingLotManager.pickUp(ticket);
+
+        // Then
+        assertThat(pickedUpCar).isEqualTo(parkedCar);
+    }
+
+    @Test
+    void should_return_car_when_pick_up_given_parking_lotA_managed_by_self_and_parking_lotB_managed_by_boy1_and_parked_in_B() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        parkingLotA.park(new Car());
+        GraduateParkingBoy parkingBoyA = new GraduateParkingBoy(List.of(parkingLotB));
+        ParkingLotManager parkingLotManager = new ParkingLotManager(List.of(parkingLotA), List.of(parkingBoyA));
+        Car parkedCar = new Car();
+        Ticket ticket = parkingLotManager.park(parkedCar);
+
+        // When
+        Car pickedUpCar = parkingLotManager.pickUp(ticket);
+
+        // Then
+        assertThat(pickedUpCar).isEqualTo(parkedCar);
+    }
+
+    @Test
+    void should_notice_invalid_ticket_when_pick_up_given_ticket_is_from_other_parking_lot() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy parkingBoyA = new GraduateParkingBoy(List.of(parkingLotB));
+        ParkingLotManager parkingLotManager = new ParkingLotManager(List.of(parkingLotA), List.of(parkingBoyA));
+        Car parkedCar = new Car();
+        ParkingLot otherParkingLot = new ParkingLot(1);
+        Ticket ticket = otherParkingLot.park(parkedCar);
+
+        // When, then
+        assertThatExceptionOfType(InvalidTicketException.class).isThrownBy(
+                () -> parkingLotManager.pickUp(ticket)
+        );
+    }
+
+    @Test
+    void should_notice_invalid_ticket_when_pick_up_given_ticket_has_been_used() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy parkingBoyA = new GraduateParkingBoy(List.of(parkingLotB));
+        ParkingLotManager parkingLotManager = new ParkingLotManager(List.of(parkingLotA), List.of(parkingBoyA));
+        Ticket ticket = parkingLotManager.park(new Car());
+        parkingLotManager.pickUp(ticket);
+
+        // When, then
+        assertThatExceptionOfType(InvalidTicketException.class).isThrownBy(
+                () -> parkingLotManager.pickUp(ticket)
+        );
+    }
 }

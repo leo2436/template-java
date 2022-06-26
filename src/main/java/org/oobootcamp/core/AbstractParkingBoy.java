@@ -33,4 +33,8 @@ public abstract class AbstractParkingBoy {
     public boolean hasCapacity() {
         return parkingLots.stream().anyMatch(parkingLot -> !parkingLot.isFull());
     }
+
+    public boolean contains(Ticket ticket) {
+        return parkingLots.stream().anyMatch(parkingLot -> parkingLot.contains(ticket));
+    }
 }
