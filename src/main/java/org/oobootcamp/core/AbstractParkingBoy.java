@@ -29,4 +29,8 @@ public abstract class AbstractParkingBoy {
     }
 
      protected abstract Optional<ParkingLot> findTargetParkingLot(Stream<ParkingLot> parkingLots);
+
+    public boolean hasCapacity() {
+        return parkingLots.stream().anyMatch(parkingLot -> !parkingLot.isFull());
+    }
 }
