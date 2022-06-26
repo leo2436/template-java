@@ -1,10 +1,13 @@
 package org.oobootcamp.core;
 
 import org.junit.jupiter.api.Test;
+import org.oobootcamp.core.exception.FullParkingLotException;
+import org.oobootcamp.core.exception.InvalidTicketException;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 class ParkingLotManagerTest {
     @Test
@@ -104,5 +107,22 @@ class ParkingLotManagerTest {
 
         // Then
         assertThat(parkingLotB.pickUp(ticket)).isEqualTo(car);
+    }
+
+    @Test
+    void should_parking_lot_is_full_when_parking_given_parking_boyA_managed_by_self_and_parking_lotB_managed_by_boy1_is_full() {
+        // Given
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        parkingLotA.park(new Car());
+        parkingLotB.park(new Car());
+        GraduateParkingBoy parkingBoyA = new GraduateParkingBoy(List.of(parkingLotB));
+        ParkingLotManager parkingLotManager = new ParkingLotManager(List.of(parkingLotA), List.of(parkingBoyA));
+
+        // When, then
+        Car car = new Car();
+        assertThatExceptionOfType(FullParkingLotException.class).isThrownBy(
+                () -> parkingLotManager.park(car)
+        );
     }
 }
